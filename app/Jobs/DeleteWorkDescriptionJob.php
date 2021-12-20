@@ -28,8 +28,10 @@ class DeleteWorkDescriptionJob implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle($user_without_work_description)
     {
-        //
+        dd('Job');
+        $user_without_work_description->work_description = null;
+        $user_without_work_description->save();
     }
 }

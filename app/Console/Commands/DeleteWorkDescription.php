@@ -2,7 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Models\User;
 use Illuminate\Console\Command;
+use App\Jobs\DeleteWorkDescriptionJob;
 
 class DeleteWorkDescription extends Command
 {
@@ -11,7 +13,7 @@ class DeleteWorkDescription extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'command:DeleteWorkDescription';
 
     /**
      * The console command description.
@@ -37,6 +39,11 @@ class DeleteWorkDescription extends Command
      */
     public function handle()
     {
+        $users_without_work_description = User::whereNotNull('work_description')->get();
+
+        foreach ($users_without_work_description as $key => $user_without_work_description) {
+            dispatch(new DeleteWorkDescriptionJob($user_without_work_description));
+        }
         return 0;
     }
 }
