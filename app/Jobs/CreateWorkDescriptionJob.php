@@ -34,7 +34,7 @@ class CreateWorkDescriptionJob implements ShouldQueue
     public function handle()
     {
         $faker = Factory::create();
-        $user_without_work_description->work_description = $faker->jobTitle();
-        $user_without_work_description->save();
+        $this->user_without_work_description->work_description = $faker->jobTitle();
+        $this->user_without_work_description->save();
     }
 }
