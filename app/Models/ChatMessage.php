@@ -7,7 +7,7 @@ use App\Models\ChatRoom;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class ChatMassage extends Model
+class ChatMessage extends Model
 {
     use HasFactory;
 
