@@ -12,10 +12,10 @@ class ChatMessage extends Model
     use HasFactory;
 
     public function room(){
-        return $this->hasOne(ChatRoom::class);
+        return $this->hasOne(ChatRoom::class, 'id', 'chat_room_id');
     }
 
     public function user(){
-        return $this->hasOne(User::class);
+        return $this->hasOne(User::class, 'id', 'user_id');
     }
 }
