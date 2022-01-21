@@ -27,15 +27,14 @@
 </template>
 
 <script>
-import axios from "axios";
 import Input from "../../Jetstream/Input.vue";
 export default {
   components: { Input },
   props: ["room"],
   data: function () {
     return {
-      message: "",
-    };
+      message: ""
+    }
   },
   methods: {
     sendMessage() {
@@ -44,9 +43,9 @@ export default {
       }
 
       axios.post("/chat/room/" + this.room.id + "/message", {
-          message: this.message,
+          message: this.message
         })
-        .then((response) => {
+        .then(response => {
           if (response.status == 201) {
             this.message = "";
             this.emit("messagesent");
@@ -54,8 +53,8 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-        });
-    },
-  },
-};
+        })
+    }
+  }
+}
 </script>

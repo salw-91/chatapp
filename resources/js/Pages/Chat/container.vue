@@ -8,7 +8,7 @@
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
           <message-container :messages="messages" />
-          <input-message :room="currentRoom" v-on:messagesent="getMessages()"/>
+          <input-message :room="currentRoom" @keyup.enter="getMessages()" />
         </div>
       </div>
     </div>
@@ -16,13 +16,11 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import MessageContainer from "./messageContainer.vue";
 import InputMessage from "./inputMessage.vue";
-import axios from "axios";
 
-export default defineComponent({
+export default {
   components: {
     AppLayout,
     MessageContainer,
@@ -38,8 +36,7 @@ export default defineComponent({
   },
   methods: {
     getRooms() {
-      axios
-        .get("/chat/rooms")
+      axios.get("/chat/rooms")
         .then((response) => {
           this.chatRooms = response.data;
           this.setRoom(response.data[0]);
@@ -52,18 +49,18 @@ export default defineComponent({
       this.currentRoom = room;
       this.getMessages();
     },
-    getMessages(){
-      axios.get('/chat/room/' + this.currentRoom.id + '/messages')
-      .then(response => {
-        this.messages = response.data;
-      })
-      .catch(error => {
-        console.log(error);
-      })
-    }
+    getMessages() {
+      axios.get("/chat/room/" + this.currentRoom.id + "/messages")
+        .then((response) => {
+          this.messages = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
   created() {
     this.getRooms();
   },
-});
+};
 </script>
